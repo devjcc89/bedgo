@@ -1,0 +1,29 @@
+<!--
+  Hidden forms for Netlify Forms detection at build time.
+  The visible forms live in the Next.js app (ContactForm.tsx).
+-->
+<form name="contacto-propietarios" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="text" name="bot-field" />
+  <input type="text" name="nombre" />
+  <input type="tel" name="telefono" />
+  <input type="email" name="email" />
+  <input type="text" name="zona" />
+  <input type="text" name="tipo_vivienda" />
+  <input type="number" name="habitaciones" />
+  <input type="text" name="alquilado" />
+  <input type="text" name="renta_actual" />
+  <textarea name="mensaje"></textarea>
+</form>
+
+<form name="contacto-inquilinos" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="text" name="bot-field" />
+  <input type="text" name="nombre" />
+  <input type="tel" name="telefono" />
+  <input type="email" name="email" />
+  <input type="number" name="edad" />
+  <input type="text" name="perfil" />
+  <input type="number" name="presupuesto" />
+  <input type="text" name="zona_preferida" />
+  <input type="text" name="fecha_inicio" />
+  <textarea name="mensaje"></textarea>
+</form>

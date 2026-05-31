@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  # Overrides Netlify UI if publish is set to repo root (required for @netlify/plugin-nextjs)
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Include static assets from public/ in the serverless bundle (before/after photos, logos, etc.)
+[functions]
+  included_files = ["public/**"]
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
