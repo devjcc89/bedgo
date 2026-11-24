@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, Mail, ArrowRight } from 'lucide-react'
+import { Phone, Mail, ArrowRight, LogIn } from 'lucide-react'
 import { FOOTER_LOGO } from '../lib/brand'
+import { CLIENT_PORTAL } from '../lib/client-portal'
 
 export default function Footer() {
   return (
@@ -60,6 +61,13 @@ export default function Footer() {
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 Inquilinos
               </Link>
+              <a
+                href={CLIENT_PORTAL.url}
+                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-200 text-sm"
+              >
+                <LogIn className="w-4 h-4" aria-hidden="true" />
+                {CLIENT_PORTAL.label}
+              </a>
             </div>
           </div>
         </div>

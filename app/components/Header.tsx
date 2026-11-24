@@ -4,8 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { Menu, X, User, Building2 } from 'lucide-react'
+import { Menu, X, User, Building2, LogIn } from 'lucide-react'
 import { LOGO } from '../lib/brand'
+import { CLIENT_PORTAL } from '../lib/client-portal'
 
 const INQUILINOS_PATH = '/inquilinos'
 
@@ -50,7 +51,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex gap-1 items-center">
+        <nav className="hidden lg:flex gap-1 items-center">
           {navLinks.map((link) => (
             <button
               key={link.id}
@@ -60,6 +61,14 @@ export default function Header() {
               {link.label}
             </button>
           ))}
+
+          <a
+            href={CLIENT_PORTAL.url}
+            className="ml-2 inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary whitespace-nowrap border border-gray-200 rounded-lg hover:text-secondary hover:border-secondary/40 transition-colors duration-200"
+          >
+            <LogIn className="w-4 h-4" aria-hidden="true" />
+            {CLIENT_PORTAL.label}
+          </a>
 
           <Link
             href={isInquilinosPage ? '/' : INQUILINOS_PATH}
@@ -81,7 +90,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="md:hidden p-2 rounded-lg text-primary hover:bg-gray-light transition-colors duration-200 cursor-pointer"
+          className="lg:hidden p-2 rounded-lg text-primary hover:bg-gray-light transition-colors duration-200 cursor-pointer"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
@@ -91,7 +100,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden max-w-6xl mx-auto mt-2 bg-white border border-gray-200 rounded-2xl shadow-card p-4 flex flex-col gap-1">
+        <div className="lg:hidden max-w-6xl mx-auto mt-2 bg-white border border-gray-200 rounded-2xl shadow-card p-4 flex flex-col gap-1">
           {navLinks.map((link) => (
             <button
               key={link.id}
@@ -101,6 +110,14 @@ export default function Header() {
               {link.label}
             </button>
           ))}
+          <a
+            href={CLIENT_PORTAL.url}
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center gap-2 px-4 py-3 text-primary font-semibold rounded-xl hover:bg-gray-light transition-colors duration-200"
+          >
+            <LogIn className="w-4 h-4" aria-hidden="true" />
+            {CLIENT_PORTAL.label}
+          </a>
           <Link
             href={isInquilinosPage ? '/' : INQUILINOS_PATH}
             className="btn-primary mt-2 justify-center"
