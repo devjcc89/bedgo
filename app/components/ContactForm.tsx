@@ -29,14 +29,16 @@ export default function ContactForm({ title, subtitle, formName, fields }: Conta
     setIsSubmitting(true)
     setMessage(null)
 
-    const formData = new FormData(e.currentTarget)
-    formData.append('form-name', formName)
+    // Keep a reference: e.currentTarget is null once the handler awaits.
+    const form = e.currentTarget
+    const payload = Object.fromEntries(new FormData(form).entries())
+    payload['form-name'] = formName
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       })
 
       if (response.ok) {
@@ -44,7 +46,7 @@ export default function ContactForm({ title, subtitle, formName, fields }: Conta
           type: 'success',
           text: 'Solicitud enviada. Te contactaremos en las próximas 24 horas.',
         })
-        e.currentTarget.reset()
+        form.reset()
         setTimeout(() => setMessage(null), 6000)
       } else {
         throw new Error('Error al enviar')
@@ -90,8 +92,12 @@ export default function ContactForm({ title, subtitle, formName, fields }: Conta
         </div>
       )}
 
-      <form name={formName} method="POST" data-netlify="true" onSubmit={handleSubmit} className="space-y-5">
-        <input type="hidden" name="form-name" value={formName} />
+      <form name={formName} method="POST" onSubmit={handleSubmit} className="space-y-5">
+        {/* Honeypot for bots; hidden from people and screen readers. */}
+        <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+          <label htmlFor={`${formName}-empresa_web`}>No rellenar</label>
+          <input id={`${formName}-empresa_web`} type="text" name="empresa_web" tabIndex={-1} autoComplete="off" />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {fields.map((field) => {
